@@ -1,0 +1,113 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-size: 107%;
+}
+
+main{
+  /* Whole grid will take up the entire screen */
+  height: 100vh;
+  width: 100vw;
+  
+  /* Creating Grid */
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-template-rows: 1fr 9fr;
+  
+  grid-template-areas:  "head head"
+                        "nav outline";
+}
+
+
+/* Grid inside top bar */
+#top{
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  grid-template-rows: 1fr 3fr;
+  align-items: center;
+  width: 100vw;
+}
+#title{
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 8;
+  background-color: black;
+  color: #d3d3d3;
+  
+  height:100%;
+}
+.topButtons{
+  grid-row: 2;
+  border: 1px solid black;
+  height:100%;
+}
+
+
+/* assigning grid areas */
+#top{
+  border-bottom: 1px solid black;
+  text-align: center;
+  grid-area: head;
+}
+
+#nav{
+  border-right: 1px solid black;
+  text-align: left;
+  grid-area: nav;
+}
+
+#outline{
+
+  grid-area: outline;
+}
+
+/* Outline area CSS */
+
+#nav{
+  margin-top:1;
+}
+
+
+ [data-level = "1"]{padding-left: 2em;}
+ [data-level = "2"]{padding-left: 4em;}
+ [data-level = "3"]{padding-left: 6em;}
+ [data-level = "4"]{padding-left: 8em;}
+ [data-level = "5"]{padding-left: 10em;}
+ [data-level = "6"]{padding-left: 12em;}
+ [data-level = "7"]{padding-left: 14em;}
+ [data-level = "8"]{padding-left: 16em;}
+ [data-level = "9"]{padding-left: 18em;}
+ ul{list-style-type: none;}
+
+
+/* Main text area CSS */
+
+
+#outline{
+  background-color: #D3D3D3;
+  
+}
+
+/* Top bar CSS */
+
+button{
+  
+}
+
+button:hover{
+  background-color: white;
+}
+
+button:active{
+  background-color: black;
+  color: white;
+}
+
+
+
+
+
+
+
+
