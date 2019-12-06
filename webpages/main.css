@@ -97,9 +97,12 @@ ul{
   color:grey;
 } */
 
-[data-indent ="1"]{margin-left: 2em; font-size: 125%;}
-[data-indent ="2"]{margin-left: 4em; font-size: 120%;}
-[data-indent ="3"]{margin-left: 6em; font-size: 115%;}
-[data-indent ="4"]{margin-left: 8em; font-size: 110%;}
-[data-indent ="5"]{margin-left: 10em; font-size: 105%;}
-[data-indent ="6"]{margin-left: 12em; font-size: 100%;}
+[data-indent ="1"]{margin-left: 3vw; font-size: 150%;}
+[data-indent ="2"]{margin-left: 6vw; font-size: 140%;}
+[data-indent ="3"]{margin-left: 9vw; font-size: 130%;}
+[data-indent ="4"]{margin-left: 12vw; font-size: 120%;}
+[data-indent ="5"]{margin-left: 15vw; font-size: 110%;}
+[data-indent ="6"]{margin-left: 18vw; font-size: 100%;}
+[data-indent ="7"]{margin-left: 21vw; font-size: 100%;}
+[data-indent ="8"]{margin-left: 24vw; font-size: 100%;}
+[data-indent ="9"]{margin-left: 27vw; font-size: 100%;}

@@ -1,7 +1,22 @@
 'use strict';
 
 let selected= null;
-let paraId=  5;
+
+function idGen(){
+  const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const idLen = 16;
+  let id = "";
+  
+  for(let i = 0; i<idLen; i++){
+    id+= letters.charAt(Math.floor(Math.random() * letters.length));
+  } 
+  console.log(id); 
+  return id;
+}
+
+function insertAfter(newEle, target) {
+  target.parentElement.insertBefore(newEle, target.nextElementSibling);
+}
 
 function webTitle(e) {
   document.querySelector("#web-title").textContent = "OE - "+ e.target.textContent.trim();
@@ -13,18 +28,6 @@ function focusPara(e) {
 }
 function blurPara(e) {
   e.target.style.background = "";
-}
-
-function idGen(){
-  const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const idLen = 8;
-  let id = "";
-  
-  for(let i = 0; i<idLen; i++){
-    id+= letters.charAt(Math.floor(Math.random() * letters.length));
-  } 
-  console.log(id); 
-  return id;
 }
 
 function newLine() {
@@ -43,7 +46,15 @@ function newLine() {
 }
 
 function newIndentedLine() {
-  let divSelector = document.querySelector("#"+"child-"+selected.id);
+  
+  if (selected.getAttribute("data-indent") == 9) {
+    window.alert("Cannot have a higher level of indentation");
+    return 0;
+  }
+  
+  const divId = String("#child-"+selected.id)
+  let divSelector = document.querySelector(divId);
+  
   const divLoc = 0;
   let newDiv = null;
   
@@ -52,24 +63,33 @@ function newIndentedLine() {
   if(divSelector == null){
     console.log("null moment");
     newDiv = document.createElement("div");
-    newDiv.setAttribute("id",divSelector);
+    newDiv.setAttribute("id","child-"+selected.id);
     newDiv.setAttribute("class","indent");
-    newDiv.textContent = "BRUUUUUUH";
-    selected.parentElement.insertBefore(newDiv, document.querySelector("#"+String(Number(selected.id)+1))); //
+    
+    if(selected.nextElementSibling === null){
+      selected.parentElement.appendChild(newDiv)
+    }else{
+      insertAfter(newDiv, selected);
+    }
+    
     divSelector = newDiv;
   }else{
-    console.log("not null moment");
+    console.log("WHAT IN THE FUCK");
   }
   
   const newP = document.createElement("p");
   newP.setAttribute("class", "oText");
   newP.setAttribute("contenteditable", "true");
   newP.setAttribute("data-indent", indentLevel);
-  newP.setAttribute("id", paraId);
-  paraId+= 1;
+  newP.setAttribute("id", idGen());
   newP.textContent = "i exist now as a branch";
-  // divSelector.insertBefore(newP, selected);
+  divSelector.appendChild(newP);
+  newP.addEventListener("focus", focusPara);
+  newP.addEventListener("blur", blurPara);
+  newP.focus();
 }
+
+
 
 
 // Event Listeners

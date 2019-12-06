@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./main.css" type="text/css">
     <title id="web-title">Outline Editor</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="top">
-      
-      <div id="top-title">
-        <p id="page-title" contenteditable="true">Outline Editor</p>
-      </div>
-      
-      <div id="top-bar">
-        <button type="button" name="button" class="topButtons" id="in-left">Indent Left</button>
-        <button type="button" name="button" class="topButtons" id="nli">New Line (lvl1)</button>
-        <button type="button" name="button" class="topButtons" id="in-right">Indent Right</button>
-        <button type="button" name="button" class="topButtons" id="child">Indented new line</button>
-        <button type="button" name="button" class="topButtons" id="a">New same level</button>
-        <button type="button" name="button" class="topButtons" id="b">button6</button>
-        <button type="button" name="button" class="topButtons" id="c">button7</button>
-      
-        
-      </div>
-      
-    </div>
-    
-    <div id="outline">
-      
-      <div class="indent" >
-        <p class="oText" contenteditable="true" data-indent="1" id="1">This should be level 1</p>
-        <div class="indent" id="child-1">
-          <p class="oText" contenteditable="true" data-indent="2" id="2">This should be level 2</p>
-          <p class="oText" contenteditable="true" data-indent="2" id="3">This should also be level 2</p>
-          <div class="indent" id="child-3">
-            <p class="oText" contenteditable="true" data-indent="3" id="4">This should be level 3</p>
-          </div>
-          <p class="oText" contenteditable="true" data-indent="2" id="5">This should be level 2 but at the buttom</p>
+
+        <div id="top-title">
+            <p id="page-title" contenteditable="true">Outline Editor</p>
         </div>
 
-      </div>
-      
-      
+        <div id="top-bar">
+            <button type="button" name="button" class="topButtons" id="in-left">Indent Left</button>
+            <button type="button" name="button" class="topButtons" id="nli">New Line (lvl1)</button>
+            <button type="button" name="button" class="topButtons" id="in-right">Indent Right</button>
+            <button type="button" name="button" class="topButtons" id="child">Indented new line</button>
+            <button type="button" name="button" class="topButtons" id="a">New same level</button>
+            <button type="button" name="button" class="topButtons" id="b">button6</button>
+            <button type="button" name="button" class="topButtons" id="c">button7</button>
+
+        </div>
+
     </div>
-  </body>
-  <script src="./app.js"></script>
+
+    <div id="outline">
+
+        <div class="indent">
+            <p class="oText" contenteditable="true" data-indent="1" id="1">This should be level 1</p>
+            <div class="indent" id="child-1">
+                <p class="oText" contenteditable="true" data-indent="2" id="2">This should be level 2</p>
+                <p class="oText" contenteditable="true" data-indent="2" id="3">This should also be level 2</p>
+                <div class="indent" id="child-3">
+                    <p class="oText" contenteditable="true" data-indent="3" id="4">This should be level 3</p>
+                </div>
+                <p class="oText" contenteditable="true" data-indent="2" id="5">This should be level 2 but at the buttom</p>
+            </div>
+
+        </div>
+    
+    </div>
+    <script src="./app.js"></script>
+</body>
+
 </html>
