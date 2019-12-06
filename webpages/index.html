@@ -1,63 +1,48 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link href="./main.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
     <meta charset="utf-8">
-    <title>Website</title>
+    <link rel="stylesheet" href="./main.css" type="text/css">
+    <title id="web-title">Outline Editor</title>
   </head>
-  
-  
   <body>
-    
-    <main>
+    <div id="top">
       
-      <header id= "top">
+      <div id="top-title">
+        <p id="page-title" contenteditable="true">Outline Editor</p>
+      </div>
+      
+      <div id="top-bar">
+        <button type="button" name="button" class="topButtons" id="in-left">Indent Left</button>
+        <button type="button" name="button" class="topButtons" id="nli">New Line (lvl1)</button>
+        <button type="button" name="button" class="topButtons" id="in-right">Indent Right</button>
+        <button type="button" name="button" class="topButtons" id="child">Indented new line</button>
+        <button type="button" name="button" class="topButtons" id="a">New same level</button>
+        <button type="button" name="button" class="topButtons" id="b">button6</button>
+        <button type="button" name="button" class="topButtons" id="c">button7</button>
+      
         
-
-          <div id="title">Untitled Website</div>
-          <button name="indentleft" class="topButtons" id="lvl1Button" >Level 1</button>
-          <button name="italic" class="topButtons" id="indentLeft"><----</button>
-          <button name="indentRight" class="topButtons" id="indentright">----></button>
-          <button name="bold" class="topButtons" id="new-child">Newchild</button>
-          <button name="" class="topButtons" id = "">6</button>
-          <button name="" class="topButtons">7</button>
-          <button name="" class="topButtons"></button>
-        
-      </header>
+      </div>
+      
+    </div>
     
-      <div id= "nav">
+    <div id="outline">
+      
+      <div class="indent" >
+        <p class="oText" contenteditable="true" data-indent="1" id="1">This should be level 1</p>
+        <div class="indent" id="child-1">
+          <p class="oText" contenteditable="true" data-indent="2" id="2">This should be level 2</p>
+          <p class="oText" contenteditable="true" data-indent="2" id="3">This should also be level 2</p>
+          <div class="indent" id="child-3">
+            <p class="oText" contenteditable="true" data-indent="3" id="4">This should be level 3</p>
+          </div>
+          <p class="oText" contenteditable="true" data-indent="2" id="5">This should be level 2 but at the buttom</p>
+        </div>
 
       </div>
       
-      <div id= "outline">
-        <ul  id="outlineList" contenteditable="true">
-          <li data-level="1" class="text">This is level 1</li>
-          <ul>
-            <li data-level="2" class="text">This is level 2</li>
-            <li data-level="2" class="text">This is also level 2</li>
-            <ul>
-              <li data-level="3" class="text">This is level 3</li>
-            </ul>
-          </ul>
-
-            
-          </ul>
-          
-        </ul>
-          </ul>
-          
-          
-          
-          
-          
-        </ul>
-        
-
-        
-      </div>
-    </main>
+      
+    </div>
   </body>
-  
-  <script src="app.js"></script>
-  
+  <script src="./app.js"></script>
 </html>

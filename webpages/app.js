@@ -1,80 +1,85 @@
-const outline = document.querySelector("#outlineList");
-let id = 2;
+'use strict';
 
+let selected= null;
+let paraId=  5;
 
-function createLvl1(e) {
-  console.log(e);
-  const lvl1 = document.createElement("li");
-  lvl1.setAttribute("id",id);
-  lvl1.setAttribute("data-level", "1");
-  lvl1.setAttribute("class", "text");
-  lvl1.textContent = "I exist now";
-  outline.appendChild(lvl1);
-  id= id+1
-  lvl1.addEventListener("click", selectItem);
+function webTitle(e) {
+  document.querySelector("#web-title").textContent = "OE - "+ e.target.textContent.trim();
 }
 
-
-let selected = "anything";
-function selectItem(e) {
+function focusPara(e) {
+  e.target.style.background = "#000000";
   selected = e.target;
 }
-
-
-
-function indentRight() {
-  let level = Number(selected.dataset.level)+1;
-  selected.dataset.level = level; 
-  console.log(selected);
-}function indentLeft() {
-  let level = Number(selected.dataset.level)-1;
-  selected.dataset.level = level;
-  console.log(selected);
+function blurPara(e) {
+  e.target.style.background = "";
 }
 
-function newChild() {  //add if statement to see if there already is a ul as a child
-  arrayEle = selected.parentElement.children
+function idGen(){
+  const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const idLen = 8;
+  let id = "";
   
-  const ul = document.createElement("ul");
-  const li = document.createElement("li");
-  li.setAttribute("contenteditable","true");
-  li.setAttribute("class", "text");
-  li.setAttribute("id",id);
-  id+=1
-  
-  console.log(arrayEle);
-  
+  for(let i = 0; i<idLen; i++){
+    id+= letters.charAt(Math.floor(Math.random() * letters.length));
+  } 
+  console.log(id); 
+  return id;
+}
 
-  ul.appendChild(li);
-  selected.parentElement.appendChild(ul);
-  // console.log(selected.parentElement);
-  li.addEventListener("click", selectItem)
+function newLine() {
+  const newP = document.createElement("p");
+  newP.setAttribute("class", "oText");
+  newP.setAttribute("contenteditable", "true");
+  newP.setAttribute("data-indent", "1");
+  newP.setAttribute("id", idGen());
+
+  
+  newP.textContent = "i exist now";
+  
+  document.querySelector("#outline").appendChild(newP);
+  newP.addEventListener("focus", focusPara);
+  newP.addEventListener("blur", blurPara);
+}
+
+function newIndentedLine() {
+  let divSelector = document.querySelector("#"+"child-"+selected.id);
+  const divLoc = 0;
+  let newDiv = null;
+  
+  const indentLevel = String(Number(selected.getAttribute("data-indent"))+1);
+  
+  if(divSelector == null){
+    console.log("null moment");
+    newDiv = document.createElement("div");
+    newDiv.setAttribute("id",divSelector);
+    newDiv.setAttribute("class","indent");
+    newDiv.textContent = "BRUUUUUUH";
+    selected.parentElement.insertBefore(newDiv, document.querySelector("#"+String(Number(selected.id)+1))); //
+    divSelector = newDiv;
+  }else{
+    console.log("not null moment");
+  }
+  
+  const newP = document.createElement("p");
+  newP.setAttribute("class", "oText");
+  newP.setAttribute("contenteditable", "true");
+  newP.setAttribute("data-indent", indentLevel);
+  newP.setAttribute("id", paraId);
+  paraId+= 1;
+  newP.textContent = "i exist now as a branch";
+  // divSelector.insertBefore(newP, selected);
 }
 
 
-function newSib() {// create sibling element just under selected when enter is pressed
-}
+// Event Listeners
+document.querySelector("#page-title").addEventListener("keyup", webTitle);
+document.querySelector("#nli").addEventListener("click", newLine);
+document.querySelector("#child").addEventListener("click", newIndentedLine);
+document.querySelectorAll(".oText").forEach((e) => e.addEventListener("focus", focusPara));
+document.querySelectorAll(".oText").forEach((e) => e.addEventListener("blur", blurPara));
 
-
-
-
-
-
-document.querySelector("#lvl1Button").addEventListener("click", createLvl1);
-
-document.querySelector("#indentright").addEventListener("click", indentRight);
-document.querySelector("#indentLeft").addEventListener("click", indentLeft);
-
-
-document.querySelector("#new-child").addEventListener("click", newChild);
-// document.querySelector("#test").addEventListener("click", test);
-
-
-
-//Attaches Event listener to all text classes
-document.querySelectorAll(".text").forEach((e) => e.addEventListener("click", selectItem));
-
-//Stops contenteditable from making new li elements when enter is pressed
-document.querySelector("#outlineList").addEventListener("keypress", function(e){
+// Stops enter from making a new line will later ad it so it makes a sibling
+document.querySelector("#outline").addEventListener("keypress", function(e){
   if(e.which === 13){e.preventDefault()}
 });
