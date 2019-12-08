@@ -1,16 +1,15 @@
 'use strict';
 
-let selected= null;
+let selected = null;
 
-function idGen(){
+function idGen() {
   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const idLen = 16;
-  let id = "";
-  
-  for(let i = 0; i<idLen; i++){
+  let id = "" ;
+
+  for (let i = 0; i < idLen; i++) {
     id+= letters.charAt(Math.floor(Math.random() * letters.length));
-  } 
-  console.log(id); 
+  }
   return id;
 }
 
@@ -18,8 +17,22 @@ function insertAfter(newEle, target) {
   target.parentElement.insertBefore(newEle, target.nextElementSibling);
 }
 
+function createP() {
+  const newP = document.createElement("p");
+  newP.setAttribute("class", "oText");
+  newP.setAttribute("contenteditable", "true");
+  newP.setAttribute("id", idGen());
+
+  newP.textContent = "i exist now";
+
+  newP.addEventListener("focus", focusPara);
+  newP.addEventListener("blur", blurPara);
+  return newP;
+}
+
+
 function webTitle(e) {
-  document.querySelector("#web-title").textContent = "OE - "+ e.target.textContent.trim();
+  document.querySelector("#web-title").textContent = "OE - " + e.target.textContent.trim();
 }
 
 function focusPara(e) {
@@ -30,63 +43,134 @@ function blurPara(e) {
   e.target.style.background = "";
 }
 
-function newLine() {
-  const newP = document.createElement("p");
-  newP.setAttribute("class", "oText");
-  newP.setAttribute("contenteditable", "true");
-  newP.setAttribute("data-indent", "1");
-  newP.setAttribute("id", idGen());
 
+function moveUp() {
+  if (!selected) { return 0;}
   
-  newP.textContent = "i exist now";
+  let eleToMove = [selected];
+  let prevEle = selected.previousElementSibling;
+
+  if (document.querySelector("#child-"+selected.id)) {
+    eleToMove.push(document.querySelector("#child-" + selected.id));
+  }
+  console.log(eleToMove);
+
+  if (!prevEle) {
+    console.log("can't move up");
+  }else {
+    if (prevEle.tagName === "DIV") {
+      prevEle = prevEle.previousElementSibling;
+    }
+    
+    eleToMove.forEach(ele => ele.parentNode.insertBefore(ele, prevEle));
+  }
   
-  document.querySelector("#outline").appendChild(newP);
-  newP.addEventListener("focus", focusPara);
-  newP.addEventListener("blur", blurPara);
+  selected.focus();
+}
+
+function moveDown() {
+  if (!selected) {return 0;}
+  
+  let eleToMove = [selected];
+  let nextEle = selected.nextElementSibling;
+  let sendTo = selected.nextElementSibling;
+  let hasChild = false;
+  
+  if (document.querySelector("#child-" + selected.id)) {
+    eleToMove.unshift(document.querySelector("#child-" + selected.id));
+  }
+  
+  if (sendTo !== null) {
+    if (sendTo.tagName === "DIV") {
+      sendTo = sendTo.nextElementSibling;
+    }
+    if (sendTo) {
+      if (sendTo.nextElementSibling) {
+        if (sendTo.nextElementSibling.tagName === "DIV") {
+          sendTo = sendTo.nextElementSibling;
+        }
+      }
+    }
+  }
+  
+  if (!sendTo) {
+    console.log("can not move down");
+  }else {
+    eleToMove.forEach((ele) => insertAfter(ele, sendTo))
+  }
+  
+  selected.focus();
+}
+
+function newLine() {
+  const newP = createP();
+  document.querySelector("#outlineOText").appendChild(newP);
+  newP.focus();
 }
 
 function newIndentedLine() {
-  
-  if (selected.getAttribute("data-indent") == 9) {
+  if (!selected) {return 0;}
+
+  if (selected.parentNode.getAttribute("data-indent") == 9) {
     window.alert("Cannot have a higher level of indentation");
     return 0;
   }
-  
-  const divId = String("#child-"+selected.id)
+
+  const divId = String("#child-" + selected.id);
   let divSelector = document.querySelector(divId);
-  
+
   const divLoc = 0;
   let newDiv = null;
-  
-  const indentLevel = String(Number(selected.getAttribute("data-indent"))+1);
-  
-  if(divSelector == null){
+
+  const indentLevel = Number(selected.getAttribute("data-indent")) + 1;
+
+  if (divSelector == null) {
     console.log("null moment");
     newDiv = document.createElement("div");
     newDiv.setAttribute("id","child-"+selected.id);
+    newDiv.setAttribute("data-indent",Number(selected.parentNode.getAttribute("data-indent"))+1);
     newDiv.setAttribute("class","indent");
-    
+
     if(selected.nextElementSibling === null){
       selected.parentElement.appendChild(newDiv)
     }else{
       insertAfter(newDiv, selected);
     }
-    
+
     divSelector = newDiv;
   }else{
     console.log("WHAT IN THE FUCK");
   }
-  
-  const newP = document.createElement("p");
-  newP.setAttribute("class", "oText");
-  newP.setAttribute("contenteditable", "true");
-  newP.setAttribute("data-indent", indentLevel);
-  newP.setAttribute("id", idGen());
-  newP.textContent = "i exist now as a branch";
+
+  const newP = createP(indentLevel);
   divSelector.appendChild(newP);
-  newP.addEventListener("focus", focusPara);
-  newP.addEventListener("blur", blurPara);
+
   newP.focus();
+}
+
+function newSib() {
+  if(!selected){return 0;}
+  const newP = createP();
+
+
+  if(selected.nextElementSibling && selected.nextElementSibling.tagName === "DIV"){
+    insertAfter(newP, selected.nextElementSibling);
+  }else{
+    insertAfter(newP, selected);
+  }
+  newP.focus();
+}
+
+
+function deleteIndividual() {
+  if(!selected){return 0;}
+  
+  const toDel = selected;
+  
+  if (selected.previousElementSibling) {
+    selected.previousElementSibling.focus();
+  }
+  toDel.remove();
 }
 
 
@@ -96,10 +180,22 @@ function newIndentedLine() {
 document.querySelector("#page-title").addEventListener("keyup", webTitle);
 document.querySelector("#nli").addEventListener("click", newLine);
 document.querySelector("#child").addEventListener("click", newIndentedLine);
+document.querySelector("#sibling").addEventListener("click", newSib);
+document.querySelector("#up").addEventListener("click", moveUp);
+document.querySelector("#down").addEventListener("click", moveDown);
 document.querySelectorAll(".oText").forEach((e) => e.addEventListener("focus", focusPara));
 document.querySelectorAll(".oText").forEach((e) => e.addEventListener("blur", blurPara));
 
-// Stops enter from making a new line will later ad it so it makes a sibling
 document.querySelector("#outline").addEventListener("keypress", function(e){
-  if(e.which === 13){e.preventDefault()}
+  if(e.which === 13){e.preventDefault(); newSib();}
+  
 });
+document.querySelector("#outline").addEventListener("keydown", function(e){
+  console.log(e.which);
+  if (e.ctrlKey && e.which === 38) {moveUp()}
+  if(e.ctrlKey && e.which === 40) {moveDown()}
+  if (e.ctrlKey && e.which === 13) {newIndentedLine()}
+  if (e.altKey && e.which === 13) {newLine()}
+  if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
+  
+})

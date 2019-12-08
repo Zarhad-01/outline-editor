@@ -7,9 +7,9 @@
 :root{
   --button-back: #323639;
   --butt-text:#e4f0fb;
-  
+
   --text: #e4f0fb;
-  
+
   --back0: #474d52;
   --back1: #323639;
   --back2: #242424;
@@ -24,10 +24,10 @@
 body{
   height: 100vh;
   width: 100vw;
-  
+
   display: grid;
   grid-template-rows: 1fr 9fr;
-  
+
 
 }
 
@@ -49,7 +49,7 @@ body{
 
 
 /* General CSS */
-[contenteditable]:focus {
+*:focus {
     outline: 0px solid transparent;
 }
 
@@ -73,7 +73,7 @@ button.topButtons:active{
 }
 
 #top-title{
-  text-align:center; 
+  text-align:center;
   background-color: var(--back0);
 }
 
@@ -83,13 +83,22 @@ button.topButtons:active{
   background-color: var(--back2);
 }
 
+#outlineOText{
+  margin-top: 0.25em;
+}
+
 .oText{
   padding-top: 0.125em;
   padding-bottom: 0.125em;
+  font-size: 125%; 
+}
+
+.line{
+  display: inline;
 }
 
 ul{
-  margin-left: 2em; 
+  margin-left: 2em;
 }
 
 /* .oText:empty::before{
@@ -97,12 +106,4 @@ ul{
   color:grey;
 } */
 
-[data-indent ="1"]{margin-left: 3vw; font-size: 150%;}
-[data-indent ="2"]{margin-left: 6vw; font-size: 140%;}
-[data-indent ="3"]{margin-left: 9vw; font-size: 130%;}
-[data-indent ="4"]{margin-left: 12vw; font-size: 120%;}
-[data-indent ="5"]{margin-left: 15vw; font-size: 110%;}
-[data-indent ="6"]{margin-left: 18vw; font-size: 100%;}
-[data-indent ="7"]{margin-left: 21vw; font-size: 100%;}
-[data-indent ="8"]{margin-left: 24vw; font-size: 100%;}
-[data-indent ="9"]{margin-left: 27vw; font-size: 100%;}
+[data-indent]{margin-left: 5vw;}
