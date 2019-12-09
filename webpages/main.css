@@ -77,6 +77,8 @@ button.topButtons:active{
   background-color: var(--back0);
 }
 
+/* make the trop nav stick to the top when scrolling happens */
+
 
 /* CSS on outline area */
 #outline{
@@ -90,7 +92,19 @@ button.topButtons:active{
 .oText{
   padding-top: 0.125em;
   padding-bottom: 0.125em;
+  padding-left: 0.4em;
   font-size: 125%; 
+  user-select: none;
+}
+
+.selected{
+  background-color: #000;
+  padding-left: 0px;
+}
+
+.selected:before{
+  content: "⋮⋮ ";
+  
 }
 
 .line{
@@ -106,4 +120,4 @@ ul{
   color:grey;
 } */
 
-[data-indent]{margin-left: 5vw;}
+[data-indent]{margin-left: 3vw;}

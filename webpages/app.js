@@ -2,9 +2,8 @@
 
 let selected = null;
 
-function idGen() {
+function idGen(idLen) {
   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const idLen = 16;
   let id = "" ;
 
   for (let i = 0; i < idLen; i++) {
@@ -21,7 +20,8 @@ function createP() {
   const newP = document.createElement("p");
   newP.setAttribute("class", "oText");
   newP.setAttribute("contenteditable", "true");
-  newP.setAttribute("id", idGen());
+  newP.setAttribute("draggable", "true");
+  newP.setAttribute("id", idGen(16));
 
   newP.textContent = "i exist now";
 
@@ -36,13 +36,12 @@ function webTitle(e) {
 }
 
 function focusPara(e) {
-  e.target.style.background = "#000000";
+  e.target.classList.add("selected");
   selected = e.target;
 }
 function blurPara(e) {
-  e.target.style.background = "";
+  e.target.classList.remove("selected");
 }
-
 
 function moveUp() {
   if (!selected) { return 0;}
@@ -84,14 +83,12 @@ function moveDown() {
     if (sendTo.tagName === "DIV") {
       sendTo = sendTo.nextElementSibling;
     }
-    if (sendTo) {
-      if (sendTo.nextElementSibling) {
-        if (sendTo.nextElementSibling.tagName === "DIV") {
+    if (sendTo && sendTo.nextElementSibling && sendTo.nextElementSibling.tagName === "DIV") {
+
           sendTo = sendTo.nextElementSibling;
         }
-      }
-    }
   }
+  
   
   if (!sendTo) {
     console.log("can not move down");
@@ -161,7 +158,6 @@ function newSib() {
   newP.focus();
 }
 
-
 function deleteIndividual() {
   if(!selected){return 0;}
   
@@ -173,9 +169,26 @@ function deleteIndividual() {
   toDel.remove();
 }
 
+function indentLeft() {
+
+}
+
+function indentRight() {
+  
+}
+
+function dragStartFun(e) {
+  const dragged = e.target;
+}
 
 
 
+
+//drop function
+
+
+
+//MDN local storage
 // Event Listeners
 document.querySelector("#page-title").addEventListener("keyup", webTitle);
 document.querySelector("#nli").addEventListener("click", newLine);
@@ -185,10 +198,19 @@ document.querySelector("#up").addEventListener("click", moveUp);
 document.querySelector("#down").addEventListener("click", moveDown);
 document.querySelectorAll(".oText").forEach((e) => e.addEventListener("focus", focusPara));
 document.querySelectorAll(".oText").forEach((e) => e.addEventListener("blur", blurPara));
+//create a event listener that saves to local starage every 5 seconds
+
+//add event listeners for all the drag stuff (prevent default drag over and drag end)
+document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragover",(e) => e.preventDefault()));
+document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragend",(e) => e.preventDefault()));
+// document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragstart", dragStartFun));
+
+
+
+
 
 document.querySelector("#outline").addEventListener("keypress", function(e){
   if(e.which === 13){e.preventDefault(); newSib();}
-  
 });
 document.querySelector("#outline").addEventListener("keydown", function(e){
   console.log(e.which);
@@ -197,5 +219,4 @@ document.querySelector("#outline").addEventListener("keydown", function(e){
   if (e.ctrlKey && e.which === 13) {newIndentedLine()}
   if (e.altKey && e.which === 13) {newLine()}
   if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
-  
 })
