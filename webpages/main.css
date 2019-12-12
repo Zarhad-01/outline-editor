@@ -22,6 +22,18 @@
   }
 }
 
+@media print {
+    div#top, dov#top-title{
+      display: none;
+  }
+  :root{
+    --text: #000;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+}
+}
+
 body{
   height: 100vh;
   width: 100vw;

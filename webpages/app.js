@@ -37,6 +37,7 @@ function loadAllEvents() {
   // document.querySelector("#up").addEventListener("click", moveUp);
   // document.querySelector("#down").addEventListener("click", moveDown);
   document.querySelector("#save").addEventListener("click", save);
+  document.querySelector("#print").addEventListener("click", function(){window.print();})
   document.querySelector("#help").addEventListener("click", helpWindow);
 }
 
