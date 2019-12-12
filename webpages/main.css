@@ -1,171 +1,152 @@
+:root{
+    --button-back: #323639;
+    --butt-text:#e4f0fb;
+    --text: #e4f0fb;
+    --back0: #474d52;
+    --back1: #323639;
+    --back1-5: #2B2D2F;
+    --back2: #242424;
+}
+@media (prefers-color-scheme: light) {
+    :root{
+      --button-back: #323639;
+      --butt-text:#e4f0fb;
+      --text: #000;
+      --back0: #474d52;
+      --back1: #323639;
+      --back1-5: #2B2D2F;
+      --back2: #242424;
+   }
+}
 *{
   margin: 0;
   padding: 0;
-  color: var(--text)
+  color: var(--text) 
 }
-
-:root{
-  --button-back: #323639;
-  --butt-text:#e4f0fb;
-
-  --text: #e4f0fb;
-
-  --back0: #474d52;
-  --back1: #323639;
-  --back1-5: #2B2D2F;
-  --back2: #242424;
-}
-
-@media (prefers-color-scheme: light) {
-  :root{
-    /* FILL IN FOR LIGHT THEME */
-  }
-}
-
 @media print {
     div#top, dov#top-title{
-      display: none;
-  }
-  :root{
-    --text: #000;
-  }
-  *::-webkit-scrollbar {
-    display: none;
+        display: none;
+   }
+    :root{
+        --text: #000;
+   }
 }
-}
-
 body{
-  height: 100vh;
-  width: 100vw;
-
-  display: grid;
-  grid-template-rows: 1fr 9fr;2
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 9fr;
 }
-
 #top{
-  display: grid;
-  grid-template-rows: 1fr 3fr;
-  
+    display: grid;
+    grid-template-rows: 1fr 3fr;
 }
 #top-title{
-  height: 100%;
+    height: 100%;
 }
-
 #top-bar{
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
 }
-
-
-
-
 /* General CSS */
 *:focus {
     outline: 0px solid transparent;
 }
-
 /* CSS on top Nav */
 button.topButtons{
-  background-color: var(--button-back);
-  color: var(--butt-text);
-  border: 0px;
+    background-color: var(--button-back);
+    color: var(--butt-text);
+    border: 0px;
 }
 button.topButtons:hover{
-  --button-back: #2b2e30;
+    --button-back: #2b2e30;
 }
 button.topButtons:active{
-  --butt-text: #fff;
-  --button-back: #000;
+    --butt-text: #fff;
+    --button-back: #000;
 }
 div.topButtonSplit{
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  border-left: 1px solid var(--back2);
-  border-right: 1px solid var(--back2);
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border-left: 1px solid var(--back2);
+    border-right: 1px solid var(--back2);
 }
-button.split{; }
-
+button.split{
+   ;
+}
 #top{
-  background-color: var(--back1);
-  align-items: center;
+    background-color: var(--back1);
+    align-items: center;
 }
-
 #top-title{
-  text-align:center;
-  background-color: var(--back0);
+    text-align:center;
+    background-color: var(--back0);
 }
-
-
-
-
+h4#KB{
+    padding-top: 0.5em;
+}
 /* CSS on outline area */
 #help-box{
-  background-color: var(--back1-5);
-
+    background-color: var(--back1-5);
 }
-#help-box ul{column-count: 2;}
-
-.hidden{display: none;}
-.hiddenText:before{content: "+ "; color:red;}
-
+#help-box ul{
+   column-count: 2;
+}
+.hidden{
+   display: none;
+}
+.hiddenText:before{
+   content: "+ ";
+    color:red;
+}
 .keyShort{
-  background-color: var(--back2);
-  border: 1px solid var(--back0);
-  border-radius: 0.25em;
-  padding-left: 0.125em;
-  padding-right: 0.125em;
+    background-color: var(--back2);
+    border: 1px solid var(--back0);
+    border-radius: 0.25em;
+    padding-left: 0.125em;
+    padding-right: 0.125em;
 }
-
-.bold{font-weight: bold;}
-.italics{font-style: italic;}
-
+.bold{
+   font-weight: bold;
+}
+.italics{
+   font-style: italic;
+}
 #outlineArea{
-  background-color: var(--back2);
-  overflow:auto;
+    background-color: var(--back2);
 }
-
-
-
+.outlineArea{
+    overflow:auto;
+}
 #outlineOText{
-  margin-top: 0.25em;
+    margin-top: 0.25em;
 }
-
-
 .oText{
-  margin-top: 0.15em;
-  margin-bottom: 0.15em;
-  margin-left: 0.4em;
-  font-size: 125%; 
-  user-select: none;
-  border-radius: 1px transparent black;
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+    margin-left: 0.4em;
+    font-size: 125%;
+    user-select: none;
 }
-
 .selected{
-  background-color: #000;
-  padding-left: 0px;
+    background-color: #000;
+    padding-left: 0px;
 }
-
 .selected:before{
-  content: "⋮⋮ ";
+    content: "⋮⋮ ";
 }
-
 .drag-help{
-  border-bottom: 0.12em solid var(--back0);
-  transition: border-bottom 0.25s ease-in-out;
+    border-bottom: 0.12em solid var(--back0);
+    transition: border-bottom 0.25s ease-in-out;
 }
-
 .line{
-  display: inline;
+    display: inline;
 }
-
 ul{
-  margin-left: 2em;
+    margin-left: 2em;
 }
 
-/* .oText:empty::before{
-  content:"BRUHBRUHBRUHBRUH"
-  color:grey;
-} */
-
-[data-indent]{padding-left: 3vw;}
+[data-indent]{
+   padding-left: 3vw;
+}

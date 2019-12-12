@@ -18,13 +18,16 @@ function loadTextEvents() {
   document.querySelector("*").addEventListener("keydown", function(e){
     if (e.ctrlKey && e.which === 83){e.preventDefault(); save()}
   });
-  document.querySelector("#outline").addEventListener("keydown", function(e){
-    if(e.which === 13){e.preventDefault(); newSib();}
+  document.querySelector("#outlineArea").addEventListener("keydown", function(e){
+    console.log(e.which);
     if (e.ctrlKey && e.which === 38) {moveUp()}
-    if(e.ctrlKey && e.which === 40) {moveDown()}
-    if (e.ctrlKey && e.which === 13) {newIndentedLine()}
-    if (e.altKey && e.which === 13) {newLine()}
-    if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
+    else if(e.ctrlKey && e.which === 40) {moveDown()}
+    else if (e.ctrlKey && e.which === 13) {newIndentedLine()}
+    else if (e.altKey && e.which === 13) {newLine()}
+    else if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
+    else if(e.which === 13){e.preventDefault(); newSib();}
+    else if(e.altKey && e.which ===187){ expand()}
+    else if(e.altKey && e.which ===189){ collapse()}
   })
 }
 
@@ -34,18 +37,23 @@ function loadAllEvents() {
   document.querySelector("#nli").addEventListener("click", newLine);
   document.querySelector("#child").addEventListener("click", newIndentedLine);
   document.querySelector("#sibling").addEventListener("click", newSib);
-  // document.querySelector("#up").addEventListener("click", moveUp);
-  // document.querySelector("#down").addEventListener("click", moveDown);
   document.querySelector("#save").addEventListener("click", save);
-  document.querySelector("#print").addEventListener("click", function(){window.print();})
+  document.querySelector("#print").addEventListener("click", pagePrinter);
   document.querySelector("#help").addEventListener("click", helpWindow);
-}
+  document.querySelector("#expand").addEventListener("click", expand);
+  document.querySelector("#collapse").addEventListener("click", collapse);
+  document.querySelector("#bold").addEventListener("click", bold);
+  document.querySelector("#italic").addEventListener("click", italic);
+  
+  document.querySelector("#top-title").addEventListener("keydown", function(e){
+    if (e.which === 13){e.preventDefault(); save()}})
+  }
 
 function prep() {
   const fileContent = window.localStorage.getItem("user")
   const fileTitle = window.localStorage.getItem("user-title")
   if (fileContent) {
-    document.querySelector("#outline").innerHTML = fileContent;
+    document.querySelector("#outlineArea").innerHTML = fileContent;
     document.querySelector("#page-title").textContent = fileTitle;
   }
   loadAllEvents();
@@ -89,7 +97,7 @@ function save() {
   document.querySelectorAll("*").forEach((e) => e.classList.remove("drag-help"));
   document.querySelectorAll("*").forEach((e) => e.classList.remove("selected"))
   
-  const fileContent = [document.querySelector("#outline").innerHTML];
+  const fileContent = [document.querySelector("#outlineArea").innerHTML];
   const fileTitle = document.querySelector("#page-title").textContent;
   window.localStorage.setItem("user", fileContent);
   window.localStorage.setItem("user-title", fileTitle);
@@ -241,14 +249,6 @@ function deleteIndividual() {
   toDel.remove();
 }
 
-function indentLeft() {
-
-}
-
-function indentRight() {
-  
-}
-
 function dragStartFun(e) {
   const childDiv = document.querySelector("#child-" + e.target.id)
   dragged = [e.target];
@@ -258,11 +258,19 @@ function dragStartFun(e) {
   
 function dragEnter(e) {
   dragEnterEle = e.target;
+  
   document.querySelectorAll("*").forEach((e) => e.classList.remove("drag-help"));
   
   if (e.target.nextElementSibling && e.target.nextElementSibling.tagName === "DIV") {
-    dragEnterEle = e.target.nextElementSibling
+    
+    if (e.target.classList.contains("hiddenText")) {
+      dragEnterEle = e.target;
+    }else{
+      dragEnterEle = e.target.nextElementSibling;
+    }
   }
+  
+  
   if (dragEnterEle && dragParentEle === e.target.parentElement) {
     dragEnterEle.classList.add("drag-help");
   }
@@ -285,6 +293,47 @@ function helpWindow() {
   }else{
     helpWindow.classList.remove("hidden");
   }
+}
+
+function collapse() {
+  const childDiv = document.querySelector("#child-"+selected.id);
+  if(childDiv){
+    selected.classList.add("hiddenText");
+    childDiv.classList.add("hidden");
+  }
+  selected.focus()
+}
+function expand() {
+  const childDiv = document.querySelector("#child-"+selected.id);
+  if(childDiv){
+    selected.classList.remove("hiddenText");
+    childDiv.classList.remove("hidden");
+  }
+  selected.focus()
+}
+
+
+function bold() {
+  if (selected.classList.contains("bold")) {
+    selected.classList.remove("bold")
+  }else{
+    selected.classList.add("bold");
+  }
+  selected.focus();
+}
+function italic() {
+  if (selected.classList.contains("italic")) {
+    selected.classList.remove("italic")
+  }else{
+    selected.classList.add("italic");
+  }
+  selected.focus();
+}
+
+function pagePrinter() {
+  document.querySelector("#outlineArea").classList.remove("outlineArea");
+  window.print();
+  document.querySelector("#outlineArea").classList.add("outlineArea");
 }
 
 window.addEventListener('load', prep);
