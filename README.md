@@ -16,9 +16,14 @@ Every time the user clicks on a paragraph, it will gain the "selected" class and
 This generates a new line at the bottom of the page that is of the lowest indentation level.
 
 ### Create new indented line 
+This generates a new line that is indented one further from the selected line and will focus on this new line.
 
 ### Create new line on same level 
+This creates a new line of the same indentation level and just below the selected area.
+
 ### Drag and Drop
+
+
 ### Expand and Collapse
 ### Bold and italic 
 ### Print
