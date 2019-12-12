@@ -12,6 +12,7 @@
 
   --back0: #474d52;
   --back1: #323639;
+  --back1-5: #2B2D2F;
   --back2: #242424;
 }
 
@@ -26,14 +27,13 @@ body{
   width: 100vw;
 
   display: grid;
-  grid-template-rows: 1fr 9fr;
-
-
+  grid-template-rows: 1fr 9fr;2
 }
 
 #top{
   display: grid;
   grid-template-rows: 1fr 3fr;
+  
 }
 #top-title{
   height: 100%;
@@ -66,6 +66,13 @@ button.topButtons:active{
   --butt-text: #fff;
   --button-back: #000;
 }
+div.topButtonSplit{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border-left: 1px solid var(--back2);
+  border-right: 1px solid var(--back2);
+}
+button.split{; }
 
 #top{
   background-color: var(--back1);
@@ -77,24 +84,49 @@ button.topButtons:active{
   background-color: var(--back0);
 }
 
-/* make the trop nav stick to the top when scrolling happens */
+
 
 
 /* CSS on outline area */
-#outline{
-  background-color: var(--back2);
+#help-box{
+  background-color: var(--back1-5);
+
 }
+#help-box ul{column-count: 2;}
+
+.hidden{display: none;}
+.hiddenText:before{content: "+ "; color:red;}
+
+.keyShort{
+  background-color: var(--back2);
+  border: 1px solid var(--back0);
+  border-radius: 0.25em;
+  padding-left: 0.125em;
+  padding-right: 0.125em;
+}
+
+.bold{font-weight: bold;}
+.italics{font-style: italic;}
+
+#outlineArea{
+  background-color: var(--back2);
+  overflow:auto;
+}
+
+
 
 #outlineOText{
   margin-top: 0.25em;
 }
 
+
 .oText{
-  padding-top: 0.125em;
-  padding-bottom: 0.125em;
-  padding-left: 0.4em;
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  margin-left: 0.4em;
   font-size: 125%; 
   user-select: none;
+  border-radius: 1px transparent black;
 }
 
 .selected{
@@ -104,7 +136,11 @@ button.topButtons:active{
 
 .selected:before{
   content: "⋮⋮ ";
-  
+}
+
+.drag-help{
+  border-bottom: 0.12em solid var(--back0);
+  transition: border-bottom 0.25s ease-in-out;
 }
 
 .line{
@@ -120,4 +156,4 @@ ul{
   color:grey;
 } */
 
-[data-indent]{margin-left: 3vw;}
+[data-indent]{padding-left: 3vw;}

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./main.css" type="text/css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./OEicon.png">
     <title id="web-title">Outline Editor</title>
 </head>
 
@@ -11,37 +12,75 @@
     <div id="top">
 
         <div id="top-title">
-            <p id="page-title" contenteditable="true">Outline Editor</p>
+            <p id="page-title" contenteditable="true">Untitled document</p>
         </div>
 
         <div id="top-bar">
             <button type="button" name="button" class="topButtons" id="nli">New Line (lvl1)</button>
             <button type="button" name="button" class="topButtons" id="child">Indented new line</button>
             <button type="button" name="button" class="topButtons" id="sibling">New same level</button>
-            <button type="button" name="button" class="topButtons" id="up">Move Up</button>
-            <button type="button" name="button" class="topButtons" id="down">Move Down</button>
-            <button type="button" name="button" class="topButtons" id="b">button6</button>
-            <button type="button" name="button" class="topButtons" id="c">button7</button>
-        </div>
-
-    </div>
-
-    <div id="outline">
-
-        <div id="outlineOText" class="indent" data-indent = "1">
-            <p class="oText" contenteditable="true" draggable="true" id="1">This should be level 1</p>
-            <div class="indent" data-indent="2" id="child-1">
-              <p class="oText" contenteditable="true" draggable="true" id="2">This should be level 2</p>
-                <p class="oText" contenteditable="true" draggable="true" id="3">This should also be level 2</p>
-                <div class="indent" data-indent="3" draggable="true" id="child-3">
-                    <p class="oText" contenteditable="true" draggable="true" id="4">This should be level 3</p>
-                </div>
-                <p class="oText" contenteditable="true" draggable="true" id="5">This should be level 2 but at the buttom</p>
+            <div class="topButtonSplit">
+              <button type="button" class="topButtons split" id="save" name="save">Save</button>
+              <button type="button" class="topButtons split" id="print" name="print">Print</button>
             </div>
-
+            <div class="topButtonSplit">
+              <button type="button" class="topButtons split" id="expand" name="expand">Expand</button>
+              <button type="button" class="topButtons split" id="collapse" name="collapse">Collapse</button>
+            </div>
+            <div class="topButtonSplit">
+              <button type="button" class="topButtons split" id="bold" name="bold">Bold</button>
+              <button type="button" class="topButtons split" id="italic" name="italic">Italic</button>
+            </div>
+            <button type="button" name="button" class="topButtons" id="help">Help</button>
         </div>
-
+        <div id="help-box">
+          <h3>Help Section</h3>
+          <h4>Keyboard Shortcuts</h4>
+          <ul>
+            <li><span class="keyShort">Enter</span> - Create new line.</li>
+            <li><span class="keyShort">Ctrl</span> + <span class="keyShort">Enter</span> - Create new Indented line.</li>
+            <li><span class="keyShort">Alt</span> + <span class="keyShort">Enter</span> - Create new line at the bottom.</li>
+            <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↑</span> - Move selected line up.</li>
+            <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↓</span> - Move selected line down</li>
+            <li><span class="keyShort">Shift</span> + <span class="keyShort">+</span> - Expand</li>
+            <li><span class="keyShort">Shift</span> + <span class="keyShort">-</span> - Collapse</li>
+          </ul>
+          
+          <p>Press "Keyboard shortcuts" to close this message.</p>
+        </div>
+        
+        <div class="hidden" id = "save">
+          <h3>Keyboard Shortcuts</h3>
+          
+        </div>
+        <div class="hidden" id = "load">
+          <h3>Keyboard Shortcuts</h3>
+          
+        </div>
     </div>
+    
+    <div id="outlineArea">
+      
+      
+      
+      
+      <div id="outline">
+          <div id="outlineOText" class="indent" data-indent = "1">
+              <p class="oText " contenteditable="true" draggable="true" id="a">This should be level 1</p>
+              <div class="indent" data-indent="2" id="child-1">
+                <p class="oText " contenteditable="true" draggable="true" id="b">This should be level 2</p>
+                  <p class="oText hiddenText" contenteditable="true" draggable="true" id="c">This should also be level 2</p>
+                  <div class="indent hidden" data-indent="3" draggable="true" id="child-c">
+                      <p class="oText " contenteditable="true" draggable="true" id="d">This should be level 3</p>
+                  </div>
+                  <p class="oText" contenteditable="true" draggable="true" id="e">This should be level 2 but at the bottom</p>
+              </div>
+  
+          </div>
+  
+      </div>
+    </div>
+    
     <script src="./app.js"></script>
 </body>
 

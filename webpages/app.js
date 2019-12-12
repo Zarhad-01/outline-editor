@@ -1,6 +1,55 @@
 'use strict';
 
 let selected = null;
+let dragged = null;
+let dragParentEle = null;
+let dragEnterEle = null;
+
+function loadTextEvents() {
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("focus", focusPara));
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("blur", blurPara));
+  
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragover", (e) => e.preventDefault()));
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragend",(e) => e.preventDefault()));
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragstart", dragStartFun));
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("drop", dragDrop));
+  document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragenter", dragEnter));
+    
+  document.querySelector("*").addEventListener("keydown", function(e){
+    if (e.ctrlKey && e.which === 83){e.preventDefault(); save()}
+  });
+  document.querySelector("#outline").addEventListener("keydown", function(e){
+    if(e.which === 13){e.preventDefault(); newSib();}
+    if (e.ctrlKey && e.which === 38) {moveUp()}
+    if(e.ctrlKey && e.which === 40) {moveDown()}
+    if (e.ctrlKey && e.which === 13) {newIndentedLine()}
+    if (e.altKey && e.which === 13) {newLine()}
+    if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
+  })
+}
+
+function loadAllEvents() {
+  loadTextEvents()
+  document.querySelector("#page-title").addEventListener("keyup", webTitle);
+  document.querySelector("#nli").addEventListener("click", newLine);
+  document.querySelector("#child").addEventListener("click", newIndentedLine);
+  document.querySelector("#sibling").addEventListener("click", newSib);
+  // document.querySelector("#up").addEventListener("click", moveUp);
+  // document.querySelector("#down").addEventListener("click", moveDown);
+  document.querySelector("#save").addEventListener("click", save);
+  document.querySelector("#help").addEventListener("click", helpWindow);
+}
+
+function prep() {
+  const fileContent = window.localStorage.getItem("user")
+  const fileTitle = window.localStorage.getItem("user-title")
+  if (fileContent) {
+    document.querySelector("#outline").innerHTML = fileContent;
+    document.querySelector("#page-title").textContent = fileTitle;
+  }
+  loadAllEvents();
+}
+
 
 function idGen(idLen) {
   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -27,12 +76,33 @@ function createP() {
 
   newP.addEventListener("focus", focusPara);
   newP.addEventListener("blur", blurPara);
+  newP.addEventListener("dragover", (e) => e.preventDefault())
+  newP.addEventListener("dragend",(e) => e.preventDefault())
+  newP.addEventListener("dragstart", dragStartFun)
+  newP.addEventListener("drop", dragDrop)
+  newP.addEventListener("dragenter", dragEnter)
   return newP;
+}
+
+function save() {
+  document.querySelectorAll("*").forEach((e) => e.classList.remove("drag-help"));
+  document.querySelectorAll("*").forEach((e) => e.classList.remove("selected"))
+  
+  const fileContent = [document.querySelector("#outline").innerHTML];
+  const fileTitle = document.querySelector("#page-title").textContent;
+  window.localStorage.setItem("user", fileContent);
+  window.localStorage.setItem("user-title", fileTitle);
 }
 
 
 function webTitle(e) {
-  document.querySelector("#web-title").textContent = "OE - " + e.target.textContent.trim();
+  const title = document.querySelector("#page-title").textContent
+  if(title === "" || title === "Untitled document"){
+    document.querySelector("#web-title").textContent = "Outline Editor"
+  }else{
+    document.querySelector("#web-title").textContent =e.target.textContent.trim();
+  }
+
 }
 
 function focusPara(e) {
@@ -98,6 +168,7 @@ function moveDown() {
   
   selected.focus();
 }
+
 
 function newLine() {
   const newP = createP();
@@ -178,45 +249,41 @@ function indentRight() {
 }
 
 function dragStartFun(e) {
-  const dragged = e.target;
+  const childDiv = document.querySelector("#child-" + e.target.id)
+  dragged = [e.target];
+  dragParentEle = e.target.parentElement;
+  if (childDiv) {dragged.unshift(childDiv)}
+  }
+  
+function dragEnter(e) {
+  dragEnterEle = e.target;
+  document.querySelectorAll("*").forEach((e) => e.classList.remove("drag-help"));
+  
+  if (e.target.nextElementSibling && e.target.nextElementSibling.tagName === "DIV") {
+    dragEnterEle = e.target.nextElementSibling
+  }
+  if (dragEnterEle && dragParentEle === e.target.parentElement) {
+    dragEnterEle.classList.add("drag-help");
+  }
 }
 
+function dragDrop(e) {
+  if (dragParentEle != e.target.parentElement) {
+    console.log("Not same scope");
+  }else{
+    dragged.forEach((drag) => insertAfter(drag, e.target));
+    dragEnterEle.classList.remove("drag-help")
+    dragEnterEle = null;
+  }
+}
 
+function helpWindow() {
+  const helpWindow = document.querySelector("#help-box");
+  if (!helpWindow.getAttribute("class")) {
+    helpWindow.classList.add("hidden");
+  }else{
+    helpWindow.classList.remove("hidden");
+  }
+}
 
-
-//drop function
-
-
-
-//MDN local storage
-// Event Listeners
-document.querySelector("#page-title").addEventListener("keyup", webTitle);
-document.querySelector("#nli").addEventListener("click", newLine);
-document.querySelector("#child").addEventListener("click", newIndentedLine);
-document.querySelector("#sibling").addEventListener("click", newSib);
-document.querySelector("#up").addEventListener("click", moveUp);
-document.querySelector("#down").addEventListener("click", moveDown);
-document.querySelectorAll(".oText").forEach((e) => e.addEventListener("focus", focusPara));
-document.querySelectorAll(".oText").forEach((e) => e.addEventListener("blur", blurPara));
-//create a event listener that saves to local starage every 5 seconds
-
-//add event listeners for all the drag stuff (prevent default drag over and drag end)
-document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragover",(e) => e.preventDefault()));
-document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragend",(e) => e.preventDefault()));
-// document.querySelectorAll(".oText").forEach((e) => e.addEventListener("dragstart", dragStartFun));
-
-
-
-
-
-document.querySelector("#outline").addEventListener("keypress", function(e){
-  if(e.which === 13){e.preventDefault(); newSib();}
-});
-document.querySelector("#outline").addEventListener("keydown", function(e){
-  console.log(e.which);
-  if (e.ctrlKey && e.which === 38) {moveUp()}
-  if(e.ctrlKey && e.which === 40) {moveDown()}
-  if (e.ctrlKey && e.which === 13) {newIndentedLine()}
-  if (e.altKey && e.which === 13) {newLine()}
-  if (selected.textContent === "" && e.which === 8) {deleteIndividual()}
-})
+window.addEventListener('load', prep);
