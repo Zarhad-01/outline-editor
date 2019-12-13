@@ -24,8 +24,8 @@
                 <button type="button" class="topButtons split" id="print" name="print">Print</button>
             </div>
             <div class="topButtonSplit">
-                <button type="button" class="topButtons split" id="expand" name="expand">Expand</button>
-                <button type="button" class="topButtons split" id="collapse" name="collapse">Collapse</button>
+                <button type="button" class="topButtons split" id="expand" name="expand">Expand and Collapse</button>
+                <button type="button" class="topButtons split" id="delete" name="delete">Delete</button>
             </div>
             <div class="topButtonSplit">
                 <button type="button" class="topButtons split" id="bold" name="bold">Bold</button>
@@ -39,19 +39,27 @@
             <p>Loading is done automatically when the webpage loads.</p>
             <p>Saving a file is a simple case of clicking on the save button or by using the inbuilt keyboard shortcut (see below).</p>
             
-            <h4 id="KB">Keyboard Shortcuts</h4>
+            <h4 class="help">Deleting</h4>
+            <p>Deleting will also delete any child nodes.</p>
+            
+            <h4 class="help">Keyboard Shortcuts</h4>
             <ul>
                 <li><span class="keyShort">Enter</span> - Create new line.</li>
                 <li><span class="keyShort">Ctrl</span> + <span class="keyShort">Enter</span> - Create new Indented line.</li>
                 <li><span class="keyShort">Alt</span> + <span class="keyShort">Enter</span> - Create new line at the bottom.</li>
                 <li><span class="keyShort">Ctrl</span> + <span class="keyShort">S</span> - Save file</li>
-                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↑</span> - Move selected line up.</li>
-                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↓</span> - Move selected line down</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">B</span> - Make text bold</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">I</span> - Italicize text</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">P</span> - Print page</li>
                 <li><span class="keyShort">Alt</span> + <span class="keyShort">+</span> - Expand</li>
                 <li><span class="keyShort">Alt</span> + <span class="keyShort">-</span> - Collapse</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↑</span> - Move selected line up.</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">↓</span> - Move selected line down</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">←</span> - Indent Left</li>
+                <li><span class="keyShort">Ctrl</span> + <span class="keyShort">→</span> - Indent Right</li>
             </ul>
 
-            <p>Press "Keyboard shortcuts" to close this message.</p>
+            <p>Press "Help" to close this message.</p>
         </div>
     </div>
 
@@ -59,7 +67,7 @@
 
         <div id="outlineOText" class="indent" data-indent="1">
             <p class="oText " contenteditable="true" draggable="true" id="a">This should be level 1</p>
-            <div class="indent" data-indent="2" id="child-1">
+            <div class="indent" data-indent="2" id="child-a">
                 <p class="oText " contenteditable="true" draggable="true" id="b">This should be level 2</p>
                 <p class="oText" contenteditable="true" draggable="true" id="c">This should also be level 2</p>
                 <div class="indent" data-indent="3" draggable="true" id="child-c">

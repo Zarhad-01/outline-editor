@@ -6,16 +6,18 @@
     --back1: #323639;
     --back1-5: #2B2D2F;
     --back2: #242424;
+    --selectedBack: #000;
 }
 @media (prefers-color-scheme: light) {
     :root{
-      --button-back: #323639;
-      --butt-text:#e4f0fb;
+      --button-back: #C4C4C4;
+      --butt-text:#000;
       --text: #000;
-      --back0: #474d52;
-      --back1: #323639;
-      --back1-5: #2B2D2F;
-      --back2: #242424;
+      --back0: #B7B7B7;
+      --back1: #C4C4C4;
+      --back1-5: #F8F8F8;
+      --back2: #FFF;
+      --selectedBack: #C4C4C4;
    }
 }
 *{
@@ -72,9 +74,10 @@ div.topButtonSplit{
     border-left: 1px solid var(--back2);
     border-right: 1px solid var(--back2);
 }
-button.split{
-   ;
+button.applied{
+  --button-back: #212426;
 }
+
 #top{
     background-color: var(--back1);
     align-items: center;
@@ -83,7 +86,7 @@ button.split{
     text-align:center;
     background-color: var(--back0);
 }
-h4#KB{
+h4.help{
     padding-top: 0.5em;
 }
 /* CSS on outline area */
@@ -110,7 +113,7 @@ h4#KB{
 .bold{
    font-weight: bold;
 }
-.italics{
+.italic{
    font-style: italic;
 }
 #outlineArea{
@@ -129,8 +132,14 @@ h4#KB{
     font-size: 125%;
     user-select: none;
 }
+.oText:empty::before{
+  content: "Type here...";
+  pointer-events: none;
+  color: grey;
+}
+
 .selected{
-    background-color: #000;
+    background-color: var(--selectedBack);
     padding-left: 0px;
 }
 .selected:before{
@@ -146,6 +155,8 @@ h4#KB{
 ul{
     margin-left: 2em;
 }
+
+
 
 [data-indent]{
    padding-left: 3vw;

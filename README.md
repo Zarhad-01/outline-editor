@@ -38,31 +38,44 @@ This is done by pressing the bold and italic buttons when you have an area selec
 You are able to create a printable copy or PDF of the outline text area.
 To do this you should press the print button or use the keyboard shortcut `Ctrl` + `P`.
 
+### Move up and down, indent left and right
+You are able to move elements around using the keyboard shortcuts. 
+Any movement of elements will move any children (if they exist) with the parent element. 
+
 ### Keyboard Shortcuts
+I have implemented various Keyboard shortcuts as it will allow the user to have more efficient use of the application.
 
+* `Enter` - Create new line
+* `Ctrl` + `Enter` - Create new Indented line
+* `Alt` + `Enter` - Create new line at the bottom
+* `Ctrl` + `S` - Save file
+* `Ctrl` + `B` - Make text bold
+* `Ctrl` + `I` - Italicize text
+* `Ctrl` + `P` - Print page
+* `Alt` + `+` - Expand
+* `Alt` + `-` - Collapse
+* `Ctrl` + `↑` - Move selected line up
+* `Ctrl` + `↓` - Move selected line down
+* `Ctrl` + `←` - Indent Left
+* `Ctrl` + `→` - Indent Right
 
-Enter - Create new line.
-Ctrl + Enter - Create new Indented line.
-Alt + Enter - Create new line at the bottom.
-Ctrl + S - Save file
-Ctrl + ↑ - Move selected line up.
-Ctrl + ↓ - Move selected line down
-Alt + + - Expand
-Alt + - - Collapse
-Ctrl + B - Make text bold
-Ctrl + I - Italicize text
-Ctrl + P - Print page
-
-
-## Design 
+## Design
 
 ### Help Window
-### Layering of colours
-### Light and dark mode
+I created a pop-up help window in order to give the user pertinent information about the application. This includes how the delete function acts as well as the keyboard shortcuts.
 
+### Light and dark mode
+I have implemented both light and dark modes as this allows for the user to decide via their OS what they wish the app to look like.
+As it is done via a media query in the CSS file the end user won't even notice the option is there.
 
 ## Unfinished and future work
+For the following list I plan on implementing these features in the future
 
 ### Multiple save functionality (on a server)
+I did attempt at creating multiple save functionality using API in a server, however this had to be scraped due to time constraints. 
+
 ### Implementing authentication
-### URL sharing
+I was planning to use Google Sign-In integration but never got around to it as I was too busy working on core functionality for the website.
+
+### URL sharing and collaborative editing
+I did want to implement this, however, due to time constraints I wasn't able to.
