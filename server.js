@@ -14,7 +14,6 @@ const server = http.createServer(app);
 // do websocket stuff at some point
 const wss = new ws.Server({server: server});
 
-
 app.use(express.static(`${__dirname}/webpages`));
 
 server.listen(port, function(){
