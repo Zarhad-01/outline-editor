@@ -1,8 +1,16 @@
 # App-Eng-CW
 An Outline Editor.
 
-key features, how to use them, details your design and implementation rationale, and lists unfinished and future work.
-
+## How to run and use the website
+The website uses a number of library modules that must be installed. This can be done with one line:
+```bash
+npm install
+```
+Now to run the webserver, this can be done by running the following line:
+```bash
+npm start
+```
+Now that the webserver is running, go to `http://localhost:8080/` in your web browser (preferably Google Chrome.)
 ## Key Features
 
 ### Save and load
