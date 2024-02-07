@@ -1,54 +1,37 @@
-# App-Eng-CW
-An Outline Editor.
+# App-Eng-CW: Outline Editor
+
+This project is a web-based outline editor developed as a 2nd year university project. It offers a rich feature set designed to enhance productivity and document structuring through an intuitive user interface.
 
 ## How to run and use the website
-The website uses a number of library modules that must be installed. This can be done with one line:
-```bash
+
+To get started, ensure you have Node.js installed on your system. Follow the steps below to install dependencies and run the webserver:
+
+1. Install the required library modules:
+```
 npm install
 ```
-Now to run the webserver, this can be done by running the following line:
-```bash
+2. Start the webserver:
+```
 npm start
 ```
 Now that the webserver is running, go to `http://localhost:8080/` in your web browser (preferably Google Chrome.)
 ## Key Features
 
-### Save and load
-Loading will always occur whenever the page starts up.
-Saving can either be done by pressing on the save button or by using the keyboard shortcut `Ctrl` + `S`.
+- **Save and Load**: Automatic loading at startup and options for manual saving.
+- **Paragraph Selection**: Click to highlight paragraphs for editing.
+- **Line Creation**: Options to create new lines at the bottom, indented, or at the same level as the selected line.
+- **Drag and Drop**: Reorganize content within the same indentation scope.
+- **Expand and Collapse**: Manage visibility of elements with children.
+- **Text Formatting**: Apply bold and italic styles.
+- **Print**: Generate a printable copy or PDF.
+- **Navigation and Indentation**: Keyboard shortcuts for movement and indentation adjustments.
+- **Keyboard Shortcuts**: Efficient application use with various shortcuts.
 
-### Select Paragraph
-Every time the user clicks on a paragraph, it will gain the "selected" class and appear highlighted. Once this has happened you can use any of the buttons or keyboard shortcuts to edit the document.
+## Design Highlights
 
-### Create new line
-This generates a new line at the bottom of the page that is of the lowest indentation level.
+- **Help Window**: A pop-up window provides crucial information and shortcut details.
+- **Light and Dark Modes**: Automatic theme adjustment based on the OS setting, enhancing user experience.
 
-### Create new indented line 
-This generates a new line that is indented one further from the selected line and will focus on this new line.
-
-### Create new line on same level 
-This creates a new line of the same indentation level and just below the selected area.
-
-### Drag and Drop
-The website allows for drag and drop functionality.
-You can only drag and drop within the scope that the selected area is in.
-
-### Expand and Collapse
-You can expand and collapse any object with children elements.
-This is done by pressing the expand and collapse button or by using the keyboard shortcuts. These are `Alt` + `+` and `Alt` + `-` respectively.
-
-### Bold and italic 
-You are able to make a selected region bold and/or italic.
-This is done by pressing the bold and italic buttons when you have an area selected or by using the keyboard shortcuts. These are `Ctrl` + `B` and `Ctrl` + `I` respectively.
-
-
-### Print
-You are able to create a printable copy or PDF of the outline text area.
-To do this you should press the print button or use the keyboard shortcut `Ctrl` + `P`.
-
-### Move up and down, indent left and right
-You are able to move elements around using the keyboard shortcuts. 
-Any movement of elements will move any children (if they exist) with the parent element. 
 
 ### Keyboard Shortcuts
 I have implemented various Keyboard shortcuts as it will allow the user to have more efficient use of the application.
@@ -67,23 +50,27 @@ I have implemented various Keyboard shortcuts as it will allow the user to have 
 * `Ctrl` + `←` - Indent Left
 * `Ctrl` + `→` - Indent Right
 
-## Design
+## Planned Improvements
 
-### Help Window
-I created a pop-up help window in order to give the user pertinent information about the application. This includes how the delete function acts as well as the keyboard shortcuts.
+To further enhance the application, the following improvements are underway:
 
-### Light and dark mode
-I have implemented both light and dark modes as this allows for the user to decide via their OS what they wish the app to look like.
-As it is done via a media query in the CSS file the end user won't even notice the option is there.
+- **Code Optimization**: Introduction of helper functions to reduce repetition, improve event listener efficiency, and adhere to the DRY principle for a cleaner, more maintainable codebase.
+- **Functionality Enhancements**: Streamlining operations with better function naming, error handling for localStorage, and security considerations for content loading.
+- **User Experience**: Enhancing keyboard accessibility and ensuring no conflict with native browser shortcuts.
+- **Feature Expansion**: Future work includes multiple save functionality on a server, implementing authentication for user management, and enabling URL sharing for collaborative editing.
 
-## Unfinished and future work
-For the following list I plan on implementing these features in the future
+## Unfinished and Future Work
 
-### Multiple save functionality (on a server)
-I did attempt at creating multiple save functionality using API in a server, however this had to be scraped due to time constraints. 
+While the core functionality is in place, several features remain in development:
 
-### Implementing authentication
-I was planning to use Google Sign-In integration but never got around to it as I was too busy working on core functionality for the website.
+- **Multiple Save Functionality**: Planned for server-based storage solutions.
+- **Authentication**: Google Sign-In integration is under consideration.
+- **Collaborative Editing**: Aiming to enable URL sharing for simultaneous document editing.
 
-### URL sharing and collaborative editing
-I did want to implement this, however, due to time constraints I wasn't able to.
+## How to Contribute
+
+Contributions are welcome! If you're interested in improving the application or adding new features, please feel free to fork the repository, make your changes, and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
